@@ -6,6 +6,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [Header ("Movement")]
     public float speed;
+    [Header("Visual")]
+    public GameObject destroyEffect;
     Vector2 movement;
 
     private Rigidbody2D rb;
@@ -26,5 +28,18 @@ public class PlayerBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + Time.deltaTime * movement);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss") || other.CompareTag("Spike"))
+        {
+            TakeDamage();
+        }
+    }
+
+    void TakeDamage()
+    {
+        gameObject.SetActive(false);
     }
 }
