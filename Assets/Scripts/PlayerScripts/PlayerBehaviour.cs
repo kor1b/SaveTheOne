@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float speed;
     [Header("Visual")]
     public GameObject destroyEffect;
+    public float deathDelay;
     Vector2 movement;
 
     private Rigidbody2D rb;
@@ -41,5 +43,13 @@ public class PlayerBehaviour : MonoBehaviour
     void TakeDamage()
     {
         gameObject.SetActive(false);
+        //Вызвать партикл смерти игрока
+        StartCoroutine(ReloadScene(deathDelay));
+    }
+
+    IEnumerator ReloadScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

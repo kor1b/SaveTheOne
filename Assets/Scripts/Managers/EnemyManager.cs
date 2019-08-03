@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+	ObjectPoolingManager pool;
 	public static EnemyManager Instance;
 
 	#region Singleton
@@ -15,8 +16,14 @@ public class EnemyManager : MonoBehaviour
 	}
 	#endregion
 
-	[Header("Enemies")]
+	public Transform enemyHolder;
+
+	[Header("Enemy Parameters")]
 	public GameObject enemySoldierPrefab;
+	public float maxSpeed = 5;
+	public float maxAcceleration = 20;
+
+	[Header("Enemies on level")]
 	public int maxEnemiesCount = 15;
 	public int extraEnemies = 4;
 	int enemiesCount;
@@ -33,6 +40,7 @@ public class EnemyManager : MonoBehaviour
 
 	private void Start()
 	{
+		pool = ObjectPoolingManager.Instance;
 		SpawnEnemies (0);
 	}
 
@@ -46,12 +54,13 @@ public class EnemyManager : MonoBehaviour
 
 			for (int j = 0; j < enemiesPerPoint; j++)
 			{
+				Debug.Log ("lalalal");
 				float offset_X = Random.Range (minOffsetX, maxOffsetX);
 				float offset_Y = Random.Range (minOffsetY, maxOffsetY);
 
 				Vector2 spawnPos = (Vector2)spawnPositions[i].position + new Vector2 (offset_X, offset_Y);
-				//TODO: Instantiate enemy
-				//Instantiate(enemySoldierPrefab, spawnPos, Quaternion.identity)
+			
+				pool.GetObject (enemySoldierPrefab, enemyHolder, spawnPos, pool.enemies);
 			}
 		}
 

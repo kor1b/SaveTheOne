@@ -5,11 +5,11 @@ public class ObjectPoolingManager : MonoBehaviour
 {
     public static ObjectPoolingManager Instance;
 
-    public List<GameObject> coridors = new List<GameObject>();
-    public List<GameObject> spikes = new List<GameObject>();
-    public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> bosses = new List<GameObject>();
-    public List<GameObject> bullets = new List<GameObject>();
+    [HideInInspector] public List<GameObject> coridors = new List<GameObject>();
+	[HideInInspector] public List<GameObject> spikes = new List<GameObject>();
+	[HideInInspector] public List<GameObject> enemies = new List<GameObject>();
+	[HideInInspector] public List<GameObject> bosses = new List<GameObject>();
+	[HideInInspector] public List<GameObject> bullets = new List<GameObject>();
 
     #region Singleton
     private void Awake()

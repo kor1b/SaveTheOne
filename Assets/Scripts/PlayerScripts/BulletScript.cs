@@ -34,22 +34,31 @@ public class BulletScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            //Вызываем функцию урона врагу
-            other.gameObject.SetActive(false);
+            if (other.gameObject != null && other.gameObject.activeInHierarchy)
+            {
+                other.GetComponent<EnemySoldier>().TakeDamage(rank);
+            }
+           
         }
         if (other.CompareTag("Boss"))
         {
-            //Вызываем функцию урона боссу
+            other.GetComponent<BossScript>().TakeDamage(rank);
         }
         else if(other.CompareTag("Shield"))
         {
-            //Вызываем функцию отбрасывания
+            //other.GetComponentInParent<BossScript>().PushAway();
+        }
+        if (rank != 1)
+        {
+            gameObject.SetActive(false);
+            //Вызвать партикл уничтожения пули
         }
     }
 
     void DestroyBullet()
     {
         gameObject.SetActive(false);
+        //Вызвать партикл уничтожения пули
     }
 
     public void InitFunction(int digit, Sprite sprite)
