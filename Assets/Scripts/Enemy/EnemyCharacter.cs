@@ -15,7 +15,7 @@ public abstract class EnemyCharacter : MonoBehaviour
 
 	protected void Death()
 	{
-		//TODO: return to pool
+		gameObject.SetActive (false);
 		Debug.Log ("Killed " + gameObject.name);
 	}
 
