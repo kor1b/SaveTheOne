@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
+    _SpawnDigit digitSpawner;
+
     [Header("Options")]
     public float speed;
     public float lifetime;
+    public float knockbackForse;
     public int rank;
     [Header("Visual")]
     public Sprite bulletSprite;
@@ -18,10 +21,11 @@ public class BulletScript : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        digitSpawner = _SpawnDigit.Instance;
     }
     private void OnEnable()
     {
-        InitFunction(rank, bulletSprite);
+        InitFunction(digitSpawner.GetDigitActive(), digitSpawner.GetSpriteActiveDigit());
         Invoke("DestroyBullet", lifetime);
     }
 
@@ -46,7 +50,8 @@ public class BulletScript : MonoBehaviour
         }
         else if(other.CompareTag("Shield"))
         {
-            //other.GetComponentInParent<BossScript>().PushAway();
+            Vector2 dir = other.transform.position - transform.position;
+            other.GetComponentInParent<BossScript>().PushAway(dir,10f);
         }
         if (rank != 1)
         {

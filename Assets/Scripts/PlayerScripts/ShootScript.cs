@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShootScript : MonoBehaviour
 {
+    public static _SpawnDigit digitSpawner;
+
     [Header ("Shooting")]
     public float startTimeBetweenShots = 2f;
     private float timeBeteweenShots;
@@ -14,6 +16,7 @@ public class ShootScript : MonoBehaviour
 
     private void Start()
     {
+        digitSpawner = _SpawnDigit.Instance;
         pool = ObjectPoolingManager.Instance;
         timeBeteweenShots = startTimeBetweenShots;
     }
@@ -21,7 +24,7 @@ public class ShootScript : MonoBehaviour
     {
         if (timeBeteweenShots <= 0)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && digitSpawner.GetCDigitsLength() > 0)
             {
                 Shoot();
                 timeBeteweenShots = startTimeBetweenShots;
@@ -37,5 +40,6 @@ public class ShootScript : MonoBehaviour
     {
         GameObject bullet = pool.GetObject(bulletBrefab, bulletPool, shootPoint.position, pool.bullets);
         bullet.transform.rotation = shootPoint.rotation;
+        digitSpawner.DeleteDigit();
     }
 }
