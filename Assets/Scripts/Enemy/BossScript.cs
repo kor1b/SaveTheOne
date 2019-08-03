@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BossScript : EnemySoldier
 {
-    List<GameObject> shields = new List<GameObject>();
-    List<GameObject> wealPlaces = new List<GameObject>();
+    public int numberOfShieldsLeft = 3;
     Rigidbody2D rb;
     private void Awake()
     {
