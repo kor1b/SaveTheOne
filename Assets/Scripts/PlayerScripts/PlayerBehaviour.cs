@@ -19,7 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         movement = moveInput * speed;
     }
 
