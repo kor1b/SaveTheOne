@@ -18,17 +18,24 @@ public class EnemyManager : MonoBehaviour
 
 	public Transform enemyHolder;
 
-	[Header("Enemy Parameters")]
+	[Header ("Resourses")]
 	public GameObject enemySoldierPrefab;
+	public GameObject bossPrefab;
+	public Sprite[] enemySoldierSprites;
+
+	[Header ("Enemy Parameters")]
 	public float maxSpeed = 5;
 	public float maxAcceleration = 20;
 
-	[Header("Enemies on level")]
+	[Header ("Enemies on level")]
 	public int maxEnemiesCount = 15;
 	public int extraEnemies = 4;
 	int enemiesCount;
 
-	[Header("Distances")]
+	public int shieldsCount = 0;
+	public int maxShieldsCount = 20;
+
+	[Header ("Distances")]
 	//min/max distance from spawn position
 	public float minOffsetX = 0;
 	public float maxOffsetX = 4;
@@ -46,7 +53,20 @@ public class EnemyManager : MonoBehaviour
 
 	void SpawnEnemies(int level)
 	{
-		enemiesCount = level + extraEnemies;
+		//random instantiate enemies
+		int randomCountOfEnemies = Random.Range (0, 2);
+
+		enemiesCount = level + extraEnemies + randomCountOfEnemies;
+		//set max count for enemies
+		if (enemiesCount > maxEnemiesCount)
+			enemiesCount = maxEnemiesCount;
+
+		float randomCountOfShields = Random.Range (0.7f, 1f);
+
+		//set shields for boss
+		shieldsCount = (int)( level * randomCountOfShields );
+		if (shieldsCount > maxShieldsCount)
+			shieldsCount = maxShieldsCount;
 
 		for (int i = 0; i < spawnPositions.Length; i++)
 		{
@@ -54,12 +74,11 @@ public class EnemyManager : MonoBehaviour
 
 			for (int j = 0; j < enemiesPerPoint; j++)
 			{
-				Debug.Log ("lalalal");
 				float offset_X = Random.Range (minOffsetX, maxOffsetX);
 				float offset_Y = Random.Range (minOffsetY, maxOffsetY);
 
 				Vector2 spawnPos = (Vector2)spawnPositions[i].position + new Vector2 (offset_X, offset_Y);
-			
+
 				pool.GetObject (enemySoldierPrefab, enemyHolder, spawnPos, pool.enemies);
 			}
 		}
