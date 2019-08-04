@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Pathfinding;
 public class SpikesSpawn : MonoBehaviour
 {
     public LayerMask wallMask;

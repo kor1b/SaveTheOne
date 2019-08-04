@@ -7,13 +7,20 @@ public class EnemySoldier : EnemyCharacter
 {
     public Enemy enemyScriptable;
     EnemyManager enemyManager;
-
+    
     public SpriteRenderer enemyGFX;
+    [Header("Visual")]
+    public GameObject healEffect;
+    public GameObject deathEffect;
+    ParticleSystem psHeal;
+    ParticleSystem psDeath;
     private AIPath aiPath;
     private int rank;
     private Animator animator;
     private void Awake()
     {
+        psHeal = healEffect.GetComponent<ParticleSystem>();
+        psDeath = deathEffect.GetComponent<ParticleSystem>();
         animator = enemyGFX.GetComponent<Animator>();
         enemyManager = EnemyManager.Instance;
 
@@ -22,7 +29,7 @@ public class EnemySoldier : EnemyCharacter
     protected override void SetParameters()
     {
         rank = Random.Range(2, 9);
-
+        enemyGFX.enabled = true;
         SwitchNumber();
     }
 
@@ -46,10 +53,14 @@ public class EnemySoldier : EnemyCharacter
 
     public override void TakeDamage(int damage)
     {
-            if (damage >= rank || damage == 1)
-                Death();
-            else
-                Heal();
+        if (damage >= rank || damage == 1)
+        {
+            
+            Death();
+            
+        }
+        else
+            Heal();
     }
 
     void Heal()
@@ -59,16 +70,30 @@ public class EnemySoldier : EnemyCharacter
             //increase rank
             rank++;
             SwitchNumber();
-            Debug.Log("Rank " + rank);
+            psHeal.Stop();
+            psHeal.Play();
         }
     }
 
     new void Death()
     {
-        base.Death();
+        Debug.Log("EnemyParticle");
+        psDeath.Stop();
+        psDeath.Play();
+        enemyGFX.enabled = false;
+        StartCoroutine(Deactivate());
         enemyManager.enemiesAlive.Remove(gameObject);
 
         if (enemyManager.enemiesAlive.Count == 3)
             enemyManager.spawnBigDigits = true;
+        else if (enemyManager.enemiesAlive.Count == 0)
+            enemyManager.SpawnBoss();
     }
+
+    IEnumerator Deactivate()
+    {
+        yield return new WaitForSeconds(psDeath.main.startLifetime.constantMax);
+        base.Death();
+    }
+
 }

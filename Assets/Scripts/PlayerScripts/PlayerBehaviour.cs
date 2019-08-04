@@ -10,14 +10,18 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Visual")]
     public GameObject destroyEffect;
     public float deathDelay;
+    public SpriteRenderer gunRenderer;
+    SpriteRenderer sr;
     Vector2 movement;
     Animator animator;
-
+    ParticleSystem ps;
     private Rigidbody2D rb;
 
 
     private void Awake()
     {
+        sr = GetComponent<SpriteRenderer>();
+        ps = destroyEffect.GetComponent<ParticleSystem>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -63,11 +67,16 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     void TakeDamage()
-    {
+    { 
+        ps.Play();
+        sr.enabled = false;
+        gunRenderer.enabled = false;
+        Invoke("Death", 1f);
         GameManager.Instance.GameOver(deathDelay);
+    }
+    void Death()
+    {
         gameObject.SetActive(false);
-        //Вызвать партикл смерти игрока
-        
     }
 
 

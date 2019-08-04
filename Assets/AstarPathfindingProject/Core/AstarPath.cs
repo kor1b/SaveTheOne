@@ -1207,13 +1207,13 @@ public class AstarPath : VersionedMonoBehaviour {
 #endif
 	}
 
-	/// <summary>
-	/// Sets up all needed variables and scans the graphs.
-	/// Calls Initialize, starts the ReturnPaths coroutine and scans all graphs.
-	/// Also starts threads if using multithreading
-	/// See: <see cref="OnAwakeSettings"/>
-	/// </summary>
-	protected override void Awake () {
+    /// <summary>
+    /// Sets up all needed variables and scans the graphs.
+    /// Calls Initialize, starts the ReturnPaths coroutine and scans all graphs.
+    /// Also starts threads if using multithreading
+    /// See: <see cref="OnAwakeSettings"/>
+    /// </summary>
+    protected override void Awake () {
 		base.Awake();
 		// Very important to set this. Ensures the singleton pattern holds
 		active = this;
@@ -2163,4 +2163,9 @@ public class AstarPath : VersionedMonoBehaviour {
 
 		return nearestNode;
 	}
+
+    private void Start()
+    {
+        Scan();
+    }
 }
