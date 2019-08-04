@@ -31,7 +31,7 @@ public class BulletScript : MonoBehaviour
 
     private void Update()
     {
-        rb.velocity = transform.right * speed;
+        rb.velocity = transform.right * speed*Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

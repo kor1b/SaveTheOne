@@ -5,18 +5,17 @@ using Pathfinding;
 
 public class EnemySoldier : EnemyCharacter
 {
-    private Enemy enemyScriptable;
+    public Enemy enemyScriptable;
+    EnemyManager enemyManager;
 
     public SpriteRenderer enemyGFX;
     private AIPath aiPath;
     private int rank;
     private Animator animator;
-    //private AnimatorOverrideController animatorOverrideController;
-
     private void Awake()
     {
-        animator = GetComponent<Animator>();
-        
+        animator = enemyGFX.GetComponent<Animator>();
+        enemyManager = EnemyManager.Instance;
 
         aiPath = GetComponent<AIPath>();
     }
@@ -29,10 +28,11 @@ public class EnemySoldier : EnemyCharacter
 
     void SwitchNumber()
     {
-        enemyScriptable = EnemyManager.Instance.enemySoldiers[rank - 2];
+        enemyScriptable = enemyManager.enemySoldiers[rank - 2];
+
         enemyGFX.sprite = enemyScriptable.sprite;
         aiPath.maxSpeed = enemyScriptable.speed;
-        if (enemyScriptable.animator != null)
+        if (enemyScriptable.animator != null || animator != null)
         {
             animator.runtimeAnimatorController = enemyScriptable.animator;
         }
@@ -40,7 +40,9 @@ public class EnemySoldier : EnemyCharacter
         {
             Debug.Log("Fuck!");
         }
+        
     }
+    
 
     public override void TakeDamage(int damage)
     {
@@ -64,6 +66,9 @@ public class EnemySoldier : EnemyCharacter
     new void Death()
     {
         base.Death();
-        EnemyManager.Instance.enemiesAlive.Remove(gameObject);
+        enemyManager.enemiesAlive.Remove(gameObject);
+
+        //if (enemyManager.enemiesAlive.Count == 3)
+            //enemyManager.spawnBigDigits = true;
     }
 }
