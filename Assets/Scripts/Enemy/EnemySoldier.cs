@@ -1,19 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class EnemySoldier : EnemyCharacter
 {
-	private int rank = 2;               //rank of number
+	public Enemy enemyScriptable;
+
+	public SpriteRenderer enemyGFX;
+	private AIPath aiPath;
+	private int rank;
+
+	int num = 2;
 
 	protected override void SetParameters()
 	{
-		rank = Random.Range (2, 9);
+		aiPath = GetComponent<AIPath> ();
+
+		num = Random.Range (2, 9);
+
+		SwitchNumber ();
+	}
+
+	void SwitchNumber()
+	{
+		enemyScriptable = EnemyManager.Instance.enemySoldiers[num - 2];
+
+		rank = enemyScriptable.rank;
+		enemyGFX.sprite = enemyScriptable.sprite;
+		aiPath.maxSpeed = enemyScriptable.speed;
 	}
 
 	public override void TakeDamage(int damage)
 	{
-		if (damage >= rank)
+<<<<<<< Updated upstream
+		if (damage >= enemyScriptable.rank)
+=======
+		if (damage >= rank || damage == 1)
+>>>>>>> Stashed changes
 			Death ();
 		else
 			Heal ();
@@ -22,7 +46,8 @@ public class EnemySoldier : EnemyCharacter
 	void Heal()
 	{
 		//increase rank
-		rank++;
+		num++;
+		SwitchNumber ();
 		Debug.Log ("Rank " + rank);
 	}
 }
