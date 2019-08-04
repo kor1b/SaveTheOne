@@ -11,6 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject destroyEffect;
     public float deathDelay;
     Vector2 movement;
+    Animator animator;
 
     private Rigidbody2D rb;
 
@@ -18,13 +19,34 @@ public class PlayerBehaviour : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         movement = moveInput * speed;
+
+        Vector3 characterScale = transform.localScale;
+        if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            animator.ResetTrigger("RunRight");
+            animator.ResetTrigger("Stay");
+            animator.SetTrigger("RunLeft");
+        }
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            animator.ResetTrigger("Stay");
+            animator.ResetTrigger("RunLeft");
+            animator.SetTrigger("RunRight");
+        }
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            animator.ResetTrigger("RunRight");
+            animator.ResetTrigger("RunLeft");
+            animator.SetTrigger("Stay");
+        }
+        transform.localScale = characterScale;
     }
 
     private void FixedUpdate()

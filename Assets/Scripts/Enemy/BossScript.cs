@@ -14,7 +14,7 @@ public class BossScript : EnemySoldier
 
     public void PushAway(Vector2 direction, float forceCoeficient)
     {
-        rb.AddForce(direction*forceCoeficient, ForceMode2D.Impulse);
+        rb.AddForce(direction * forceCoeficient, ForceMode2D.Impulse);
         rb.AddTorque(direction.x, ForceMode2D.Impulse);
     }
 }

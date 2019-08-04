@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 13.5
   lifetime: 2
+  knockbackForse: 0.01
   rank: 1
   bulletSprite: {fileID: 21300000, guid: ffd6c7010634feb44ac860c218e66e46, type: 3}
   destroyEffect: {fileID: 0}
