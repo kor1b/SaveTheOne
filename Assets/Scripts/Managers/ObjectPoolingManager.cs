@@ -5,7 +5,7 @@ public class ObjectPoolingManager : MonoBehaviour
 {
     public static ObjectPoolingManager Instance;
 
-    [HideInInspector] public List<GameObject> coridors = new List<GameObject>();
+    public List<GameObject> coridors = new List<GameObject>();
 	[HideInInspector] public List<GameObject> spikes = new List<GameObject>();
 	[HideInInspector] public List<GameObject> enemies = new List<GameObject>();
 	[HideInInspector] public List<GameObject> bosses = new List<GameObject>();
