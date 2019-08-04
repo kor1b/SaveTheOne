@@ -16,7 +16,7 @@ public class BulletScript : MonoBehaviour
     public GameObject destroyEffect;
     public SpriteRenderer sr;
     Rigidbody2D rb;
-
+    private float lifeTimer;
 
     private void Awake()
     {
@@ -26,10 +26,21 @@ public class BulletScript : MonoBehaviour
     private void OnEnable()
     {
         InitFunction(digitSpawner.GetDigitActive()+1, digitSpawner.GetSpriteActiveDigit());
-        Invoke("DestroyBullet", lifetime);
+        lifeTimer = lifetime;
     }
 
     private void Update()
+    {
+        if (lifeTimer <= 0)
+        {
+            DestroyBullet();
+        }
+        else
+        {
+            lifeTimer -= Time.deltaTime;
+        }
+    }
+    private void FixedUpdate()
     {
         rb.velocity = transform.right * speed;
     }
@@ -59,11 +70,11 @@ public class BulletScript : MonoBehaviour
             }
             DestroyBullet();
         }
-        if (rank != 1)
-        {
+        //if (rank != 1)
+        //{
             DestroyBullet();
             //Вызвать партикл уничтожения пули
-        }
+        //}
     }
 
     void DestroyBullet()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class _SpawnDigit : MonoBehaviour {
+
     public static _SpawnDigit Instance;
 
     #region Singleton
@@ -34,7 +35,7 @@ public class _SpawnDigit : MonoBehaviour {
         lastFrontier = false;
         cDigits = new List<CDigit>();
         oneNum = 0;
-        int rand = Random.Range(0, 8);
+        int rand = Random.Range(0, 9);
         if (rand == 0)
         {
             oneNum++;
@@ -44,7 +45,7 @@ public class _SpawnDigit : MonoBehaviour {
         digitActive = 0;
         //SetDigitActive();
         cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, 4, 0);
-        rand = Random.Range(0, 8);
+        rand = Random.Range(0, 9);
         if (rand == 0)
         {
             oneNum++;
@@ -52,7 +53,7 @@ public class _SpawnDigit : MonoBehaviour {
         digit = Instantiate(digits[rand], Parent.transform.position + new Vector3(3.5f, 0f, 0f), digits[rand].transform.rotation, Parent.transform);
         cDigits.Add(new CDigit(digit, rand + 1));
 
-        rand = Random.Range(0, 8);
+        rand = Random.Range(0, 9);
         if (rand == 0)
         {
             oneNum++;
@@ -78,7 +79,7 @@ public class _SpawnDigit : MonoBehaviour {
         while (!isGameOver)
         {
             yield return new WaitForSeconds(timeForWait);
-            lastFrontier = true;                                    //!!! Тут заменить на метод получение переменной "последний рубеж"
+            lastFrontier =  EnemyManager.Instance.spawnBigDigits;                         //!!! Тут заменить на метод получение переменной "последний рубеж"
             if (cDigits.Count<5)
             {
                 int i = 0;
@@ -90,7 +91,7 @@ public class _SpawnDigit : MonoBehaviour {
 
                     if (lastFrontier)
                     {
-                        maxLevelDigit = 5;      //n-1                                //!!! Тут заменить на метод получение переменной "максимальный уровень врага"
+                        maxLevelDigit = EnemyManager.Instance.GetMaxRank()-1;      //n-1                                //!!! Тут заменить на метод получение переменной "максимальный уровень врага"
                         mind = Mathf.Max(0, maxLevelDigit - 2);
                         maxd = Mathf.Min(9, maxLevelDigit + 3);
                         if (oneNum < 2)
@@ -173,11 +174,16 @@ public class _SpawnDigit : MonoBehaviour {
     }
     public int GetDigitActive()
     {
-        return cDigits[digitActive]._digit;
+        return cDigits[digitActive]._digit - 1;
     }
     public Sprite GetSpriteActiveDigit()
     {
         return spriteDigit[GetDigitActive()];
+    }
+
+    public int GetCDigitLength()
+    {
+        return cDigits.Count;
     }
 }
 [System.Serializable]

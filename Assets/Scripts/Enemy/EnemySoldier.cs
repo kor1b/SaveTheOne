@@ -68,7 +68,7 @@ public class EnemySoldier : EnemyCharacter
         base.Death();
         enemyManager.enemiesAlive.Remove(gameObject);
 
-        //if (enemyManager.enemiesAlive.Count == 3)
-            //enemyManager.spawnBigDigits = true;
+        if (enemyManager.enemiesAlive.Count == 3)
+            enemyManager.spawnBigDigits = true;
     }
 }

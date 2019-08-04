@@ -20,7 +20,9 @@ public class EnemyManager : MonoBehaviour
 
 	[HideInInspector] public List<GameObject> enemiesAlive;
 
-	[Header ("Resourses")]
+    public bool spawnBigDigits = false;
+
+    [Header ("Resourses")]
 	public GameObject enemySoldierPrefab;
 	public GameObject bossPrefab;
 	public Enemy[] enemySoldiers;
@@ -87,4 +89,20 @@ public class EnemyManager : MonoBehaviour
 
 		//TODO:Instantiate boss
 	}
+
+    public int GetMaxRank()
+    {
+        int maxRank = 2;
+
+        foreach (var n in enemiesAlive)
+        {
+            int rank = n.GetComponent<EnemySoldier>().enemyScriptable.rank;
+            if (rank > maxRank)
+                maxRank = rank;
+        }
+
+        return maxRank;
+    }
+
+
 }
