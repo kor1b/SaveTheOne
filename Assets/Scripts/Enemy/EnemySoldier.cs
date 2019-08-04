@@ -33,14 +33,13 @@ public class EnemySoldier : EnemyCharacter
 
 	public override void TakeDamage(int damage)
 	{
-<<<<<<< Updated upstream
 		if (damage >= enemyScriptable.rank)
-=======
-		if (damage >= rank || damage == 1)
->>>>>>> Stashed changes
-			Death ();
-		else
-			Heal ();
+		{
+			if (damage >= rank || damage == 1)
+				Death ();
+			else
+				Heal ();
+		}
 	}
 
 	void Heal()
@@ -49,5 +48,10 @@ public class EnemySoldier : EnemyCharacter
 		num++;
 		SwitchNumber ();
 		Debug.Log ("Rank " + rank);
+	}
+
+	new void Death()
+	{
+		EnemyManager.Instance.enemiesAlive.Remove (gameObject);
 	}
 }

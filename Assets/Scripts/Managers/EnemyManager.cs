@@ -18,6 +18,8 @@ public class EnemyManager : MonoBehaviour
 
 	public Transform enemyHolder;
 
+	[HideInInspector] public List<GameObject> enemiesAlive;
+
 	[Header ("Resourses")]
 	public GameObject enemySoldierPrefab;
 	public GameObject bossPrefab;
@@ -79,7 +81,7 @@ public class EnemyManager : MonoBehaviour
 
 				Vector2 spawnPos = (Vector2)spawnPositions[i].position + new Vector2 (offset_X, offset_Y);
 
-				pool.GetObject (enemySoldierPrefab, enemyHolder, spawnPos, pool.enemies);
+				enemiesAlive.Add(pool.GetObject (enemySoldierPrefab, enemyHolder, spawnPos, pool.enemies));
 			}
 		}
 
