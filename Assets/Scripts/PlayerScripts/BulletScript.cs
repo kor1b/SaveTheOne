@@ -25,7 +25,7 @@ public class BulletScript : MonoBehaviour
     }
     private void OnEnable()
     {
-        InitFunction(digitSpawner.GetDigitActive(), digitSpawner.GetSpriteActiveDigit());
+        InitFunction(digitSpawner.GetDigitActive()+1, digitSpawner.GetSpriteActiveDigit());
         Invoke("DestroyBullet", lifetime);
     }
 
@@ -41,21 +41,27 @@ public class BulletScript : MonoBehaviour
             if (other.gameObject != null && other.gameObject.activeInHierarchy)
             {
                 other.GetComponent<EnemySoldier>().TakeDamage(rank);
+                DestroyBullet();
             }
            
         }
         if (other.CompareTag("Boss"))
         {
             other.GetComponent<BossScript>().TakeDamage(rank);
+            DestroyBullet();
         }
         else if(other.CompareTag("Shield"))
         {
-            Vector2 dir = other.transform.position - transform.position;
-            other.GetComponentInParent<BossScript>().PushAway(dir,10f);
+            if (rank == 1)
+            {
+                Vector2 dir = other.transform.position - transform.position;
+                other.GetComponentInParent<BossScript>().PushAway(dir, 10f);
+            }
+            DestroyBullet();
         }
         if (rank != 1)
         {
-            gameObject.SetActive(false);
+            DestroyBullet();
             //Вызвать партикл уничтожения пули
         }
     }
@@ -69,6 +75,7 @@ public class BulletScript : MonoBehaviour
     public void InitFunction(int digit, Sprite sprite)
     {
         rank = digit;
-        sr.sprite = sprite;
+        bulletSprite = sprite;
+        sr.sprite = bulletSprite;
     }
 }

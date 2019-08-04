@@ -57,21 +57,18 @@ public class PlayerBehaviour : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss") || other.CompareTag("Spike"))
-        {
+        {   
             TakeDamage();
         }
     }
 
     void TakeDamage()
     {
+        GameManager.Instance.GameOver(deathDelay);
         gameObject.SetActive(false);
         //Вызвать партикл смерти игрока
-        StartCoroutine(ReloadScene(deathDelay));
+        
     }
 
-    IEnumerator ReloadScene(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+
 }

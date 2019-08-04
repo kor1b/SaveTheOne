@@ -80,10 +80,10 @@ public class _SpawnDigit : MonoBehaviour {
             }
             Destroy(cDigits[n].gameObjectDigit);
             cDigits.RemoveAt(n);
-            //if (cDigits.Count > 0)
-            //{
-            //    cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
-            //}
+            if (cDigits.Count > 0)
+            {
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
+            }
         }
     }
     public void SetDigitActive()
@@ -93,14 +93,14 @@ public class _SpawnDigit : MonoBehaviour {
             if (digitActive == cDigits.Count - 1)
             {
                 cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
-                //digitActive = 0;
-                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
+                digitActive = 0;
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
             }
             else
             {
                 cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
-                //digitActive++;
-                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
+                digitActive++;
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
                
             }
         }

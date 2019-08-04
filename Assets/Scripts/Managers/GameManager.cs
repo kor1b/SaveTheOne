@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,5 +17,17 @@ public class GameManager : MonoBehaviour
 			return;
 		Instance = this;
 	}
-	#endregion
+    #endregion
+
+    public void GameOver(float sceneReloadDelay)
+    {
+        StartCoroutine(ReloadScene(sceneReloadDelay));
+    }
+
+    IEnumerator ReloadScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Dead");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

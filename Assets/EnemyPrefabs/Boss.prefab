@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1657295281496218404}
   m_Layer: 0
   m_Name: New Sprite (2)
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb1075349a148f409ef70dff774a801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyScriptable: {fileID: 0}
+  enemyGFX: {fileID: 0}
   numberOfShieldsLeft: 3
 --- !u!1 &1657295282457686001
 GameObject:
@@ -258,7 +260,7 @@ GameObject:
   - component: {fileID: 1657295282457685966}
   m_Layer: 0
   m_Name: New Sprite
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,7 +366,7 @@ GameObject:
   - component: {fileID: 1657295282473280143}
   m_Layer: 0
   m_Name: New Sprite (1)
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -470,7 +472,7 @@ GameObject:
   - component: {fileID: 1657295282573467756}
   m_Layer: 0
   m_Name: New Sprite (3)
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
