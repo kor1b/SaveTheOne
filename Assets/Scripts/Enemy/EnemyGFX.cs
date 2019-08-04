@@ -18,7 +18,7 @@ public class EnemyGFX : MonoBehaviour
 	{
         if (aiPath.desiredVelocity.x >= 0.01f)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            parent.transform.rotation = Quaternion.Euler(0, 180, 0);
             animator.ResetTrigger("Stay");
             animator.SetTrigger("RunLeft");
             animator.ResetTrigger("RunRight");
@@ -26,7 +26,7 @@ public class EnemyGFX : MonoBehaviour
 
         else if (aiPath.desiredVelocity.x <= 0.01f)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            parent.transform.rotation = Quaternion.Euler(0, 0, 0);
             animator.ResetTrigger("Stay");
             animator.ResetTrigger("RunLeft");
             animator.SetTrigger("RunRight");

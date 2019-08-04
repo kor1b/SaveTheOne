@@ -12,10 +12,14 @@ public class ShootScript : MonoBehaviour
     public GameObject bulletBrefab;
     public Transform bulletPool;
     public Transform shootPoint;
+    [Header("Visual")]
+    public GameObject shootingEffect;
+    ParticleSystem ps;
     ObjectPoolingManager pool;
 
     private void Start()
     {
+        ps = shootingEffect.GetComponent<ParticleSystem>();
         digitSpawner = _SpawnDigit.Instance;
         pool = ObjectPoolingManager.Instance;
         timeBeteweenShots = startTimeBetweenShots;
@@ -41,5 +45,6 @@ public class ShootScript : MonoBehaviour
         GameObject bullet = pool.GetObject(bulletBrefab, bulletPool, shootPoint.position, pool.bullets);
         bullet.transform.rotation = shootPoint.rotation;
         digitSpawner.DeleteDigit();
+        ps.Play();
     }
 }
