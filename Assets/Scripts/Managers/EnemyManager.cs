@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
 	[Header ("Resourses")]
 	public GameObject enemySoldierPrefab;
 	public GameObject bossPrefab;
-	public Sprite[] enemySoldierSprites;
+	public Enemy[] enemySoldiers;
 
 	[Header ("Enemy Parameters")]
 	public float maxSpeed = 5;

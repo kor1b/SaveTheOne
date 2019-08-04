@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b99b6d2904817b41b8d9051f250c55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyScriptable: {fileID: 0}
   enemyGFX: {fileID: 6028487877527833157}
 --- !u!114 &6028487877764690615
 MonoBehaviour:
