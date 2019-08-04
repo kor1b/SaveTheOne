@@ -5,16 +5,23 @@ using Pathfinding;
 
 public class EnemySoldier : EnemyCharacter
 {
-    public Enemy enemyScriptable;
+    private Enemy enemyScriptable;
 
     public SpriteRenderer enemyGFX;
     private AIPath aiPath;
     private int rank;
+    private Animator animator;
+    //private AnimatorOverrideController animatorOverrideController;
 
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        
+
+        aiPath = GetComponent<AIPath>();
+    }
     protected override void SetParameters()
     {
-        aiPath = GetComponent<AIPath>();
-
         rank = Random.Range(2, 9);
 
         SwitchNumber();
@@ -23,9 +30,16 @@ public class EnemySoldier : EnemyCharacter
     void SwitchNumber()
     {
         enemyScriptable = EnemyManager.Instance.enemySoldiers[rank - 2];
-
         enemyGFX.sprite = enemyScriptable.sprite;
         aiPath.maxSpeed = enemyScriptable.speed;
+        if (enemyScriptable.animator != null)
+        {
+            animator.runtimeAnimatorController = enemyScriptable.animator;
+        }
+        else
+        {
+            Debug.Log("Fuck!");
+        }
     }
 
     public override void TakeDamage(int damage)

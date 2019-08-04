@@ -8,4 +8,5 @@ public class Enemy : ScriptableObject
 	public Sprite sprite;
 	public int rank;
 	public float speed;
+    public AnimatorOverrideController animator;
 }

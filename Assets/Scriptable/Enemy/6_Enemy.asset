@@ -15,3 +15,4 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 395cd8a2c64fc384db6ec73986377d82, type: 3}
   rank: 6
   speed: 1
+  animator: {fileID: 22100000, guid: 735614d7ed49b5c4e8baf1b9ab6cbd68, type: 2}
