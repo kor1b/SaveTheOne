@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class _SpawnDigit : MonoBehaviour {
+
     public static _SpawnDigit Instance;
 
     #region Singleton
@@ -24,6 +25,9 @@ public class _SpawnDigit : MonoBehaviour {
     int digitActive;
     [SerializeField]
     Sprite[] spriteDigit;
+    [SerializeField]
+    Sprite[] spriteActiveDigit;
+
     void Start () {
         cDigits = new List<CDigit>();
         digitActive = 0;
@@ -36,6 +40,7 @@ public class _SpawnDigit : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space))
         {
             SetDigitActive();
+            //DeleteDigit(digitActive);
         }
 	}
 
@@ -75,6 +80,10 @@ public class _SpawnDigit : MonoBehaviour {
             }
             Destroy(cDigits[n].gameObjectDigit);
             cDigits.RemoveAt(n);
+            if (cDigits.Count > 0)
+            {
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
+            }
         }
     }
     public void SetDigitActive()
@@ -83,17 +92,22 @@ public class _SpawnDigit : MonoBehaviour {
         {
             if (digitActive == cDigits.Count - 1)
             {
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
                 digitActive = 0;
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
             }
             else
             {
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
                 digitActive++;
+                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
+               
             }
         }
     }
     public int GetDigitActive()
     {
-        return cDigits[digitActive]._digit-1;
+        return cDigits[digitActive]._digit;
     }
     public Sprite GetSpriteActiveDigit()
     {
