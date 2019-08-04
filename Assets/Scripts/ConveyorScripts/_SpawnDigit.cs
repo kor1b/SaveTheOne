@@ -53,7 +53,7 @@ public class _SpawnDigit : MonoBehaviour {
 
             if (cDigits.Count<5)
             {
-                int rand = Random.Range(0, 8);
+                int rand = Random.Range(0, 9);
                // yield return new WaitForSeconds(timeForWait);
                 digit = Instantiate(digits[rand], Parent.transform.position, digits[rand].transform.rotation, Parent.transform);
                 cDigits.Add(new CDigit(digit,rand+1));
