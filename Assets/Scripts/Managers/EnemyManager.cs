@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
 	void SpawnEnemies(int level)
 	{
 		//random instantiate enemies
-		int randomCountOfEnemies = Random.Range (0, 2);
+		int randomCountOfEnemies = Random.Range (0, 3);
 
 		enemiesCount = level + extraEnemies + randomCountOfEnemies;
 		//set max count for enemies

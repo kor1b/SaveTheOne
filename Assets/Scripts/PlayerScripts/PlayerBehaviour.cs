@@ -25,22 +25,22 @@ public class PlayerBehaviour : MonoBehaviour
     private void Update()
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        movement = moveInput * speed;
+        movement = moveInput.normalized * speed;
 
         Vector3 characterScale = transform.localScale;
-        if (Input.GetAxisRaw("Horizontal") < 0)
+        if (Input.GetAxisRaw("Horizontal") < 0 || Input.GetAxisRaw("Vertical") > 0 || Input.GetAxisRaw("Vertical") < 0)
         {
             animator.ResetTrigger("RunRight");
             animator.ResetTrigger("Stay");
             animator.SetTrigger("RunLeft");
         }
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        else if (Input.GetAxisRaw("Horizontal") > 0)
         {
             animator.ResetTrigger("Stay");
             animator.ResetTrigger("RunLeft");
             animator.SetTrigger("RunRight");
         }
-        if (Input.GetAxisRaw("Horizontal") == 0)
+        else if (Input.GetAxisRaw("Horizontal") == 0)
         {
             animator.ResetTrigger("RunRight");
             animator.ResetTrigger("RunLeft");
