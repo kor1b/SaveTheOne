@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
         spawnManager = SpawnManager.Instance;
         
     }
+
+    public void LoadCorridor()
+    {
+        spawnManager.AddNewCoridor(coridor);
+    }
     public void GameOver(float sceneReloadDelay)
     {
         StartCoroutine(ReloadScene(sceneReloadDelay));

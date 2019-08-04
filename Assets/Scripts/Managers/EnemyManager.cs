@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
         SpawnEnemies(0);
     }
 
-    void SpawnEnemies(int level)
+    public void SpawnEnemies(int level)
     {
         spawnBigDigits = false;
 

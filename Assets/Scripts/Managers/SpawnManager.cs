@@ -54,6 +54,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator CloseOldExitDoor()
     {
+        GameManager.Instance.level++;
         while (oldCoridor.exitDoor.transform.localPosition.x < oldCoridor.defaultExitDoorPosition.x)
         {
             oldCoridor.exitDoor.transform.localPosition = new Vector3(oldCoridor.exitDoor.transform.localPosition.x + speed * Time.deltaTime, oldCoridor.defaultExitDoorPosition.y, 0);
@@ -61,6 +62,11 @@ public class SpawnManager : MonoBehaviour
         }
         newCoridor.enterDoor.gameObject.SetActive(true);
         oldCoridorSystem.SetActive(false);
+        MoveToCoordBegin(coridorParent);
+        GameObject.FindWithTag("Player").transform.SetParent(newCoridorSystem.transform);
+        MoveToCoordBegin(newCoridorSystem.transform);
+        
+        EnemyManager.Instance.SpawnEnemies(GameManager.Instance.level);
     }
 
     public void MoveToCoordBegin(Transform objects)

@@ -58,8 +58,11 @@ public class BulletScript : MonoBehaviour
         }
         if (other.CompareTag("Boss"))
         {
-            other.GetComponent<BossScript>().TakeDamage(rank);
-            DestroyBullet();
+            if (rank == 1)
+            {
+                other.GetComponent<BossScript>().TakeDamage(rank);
+                DestroyBullet();
+            }
         }
         else if(other.CompareTag("Shield"))
         {
