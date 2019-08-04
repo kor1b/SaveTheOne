@@ -33,7 +33,11 @@ public class EnemySoldier : EnemyCharacter
 
 	public override void TakeDamage(int damage)
 	{
+<<<<<<< Updated upstream
 		if (damage >= enemyScriptable.rank)
+=======
+		if (damage >= rank || damage == 1)
+>>>>>>> Stashed changes
 			Death ();
 		else
 			Heal ();
