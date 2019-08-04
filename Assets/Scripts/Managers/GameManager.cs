@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance;
     SpawnManager spawnManager;
-    public GameObject coridor;
 	public int level = 1;
 	public float score = 0;
 
@@ -23,13 +22,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         spawnManager = SpawnManager.Instance;
-        
     }
 
-    public void LoadCorridor()
-    {
-        spawnManager.AddNewCoridor(coridor);
-    }
     public void GameOver(float sceneReloadDelay)
     {
         StartCoroutine(ReloadScene(sceneReloadDelay));

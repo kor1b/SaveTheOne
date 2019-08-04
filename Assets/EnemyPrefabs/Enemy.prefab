@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiPath: {fileID: 6028487877764690612}
+  parent: {fileID: 6028487877764690613}
 --- !u!95 &4979510185569459749
 Animator:
   serializedVersion: 3
@@ -205,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8632dd9ac3724174f8bfda1dc1e6a3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerDistance: 5.5
+  triggerDistance: 6
 --- !u!114 &6028487877764690612
 MonoBehaviour:
   m_ObjectHideFlags: 0

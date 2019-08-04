@@ -5,7 +5,7 @@ using Pathfinding;
 
 public class BossScript : EnemyCharacter
 {
-    AIDestinationSetter aiDSsetter;
+    public AIDestinationSetter aiDSsetter;
     public int numberOfShieldsLeft = 3;
     Rigidbody2D rb;
     private void Awake()
@@ -23,7 +23,8 @@ public class BossScript : EnemyCharacter
 
     public override void TakeDamage(int damage)
     {
-        GameManager.Instance.LoadCorridor();
+        Debug.Log("Yeeeah!");
+        SpawnManager.Instance.LoadCoridor();
         Death();
 
     }

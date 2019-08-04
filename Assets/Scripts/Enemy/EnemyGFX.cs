@@ -7,6 +7,7 @@ public class EnemyGFX : MonoBehaviour
 {
 	public AIPath aiPath;
     Animator animator;
+    public GameObject parent;
 
     private void Start()
     {
@@ -27,8 +28,8 @@ public class EnemyGFX : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             animator.ResetTrigger("Stay");
-            animator.SetTrigger("RunLeft");
-            animator.ResetTrigger("RunRight");
+            animator.ResetTrigger("RunLeft");
+            animator.SetTrigger("RunRight");
         }
 
         else if (aiPath.desiredVelocity.x == 0f)
