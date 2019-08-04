@@ -70,5 +70,8 @@ public class EnemySoldier : EnemyCharacter
 
         if (enemyManager.enemiesAlive.Count == 3)
             enemyManager.spawnBigDigits = true;
+        else if (enemyManager.enemiesAlive.Count == 0)
+            enemyManager.SpawnBoss();
     }
+
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossScript : EnemySoldier
+public class BossScript : EnemyCharacter
 {
     public int numberOfShieldsLeft = 3;
     Rigidbody2D rb;
@@ -12,6 +12,15 @@ public class BossScript : EnemySoldier
         //SetParameters();
     }
 
+    protected override void SetParameters()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        gameObject.SetActive(false);
+    }
     public void PushAway(Vector2 direction, float forceCoeficient)
     {
         rb.AddForce(direction * forceCoeficient, ForceMode2D.Impulse);
