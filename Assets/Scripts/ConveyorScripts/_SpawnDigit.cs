@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class _SpawnDigit : MonoBehaviour {
-
     public static _SpawnDigit Instance;
 
     #region Singleton
@@ -26,11 +25,41 @@ public class _SpawnDigit : MonoBehaviour {
     [SerializeField]
     Sprite[] spriteDigit;
     [SerializeField]
-    Sprite[] spriteActiveDigit;
+    //Sprite[] spriteActiveDigit;
+    int oneNum;
+    bool lastFrontier;
+    int maxLevelDigit;
 
     void Start () {
+        lastFrontier = false;
         cDigits = new List<CDigit>();
+        oneNum = 0;
+        int rand = Random.Range(0, 8);
+        if (rand == 0)
+        {
+            oneNum++;
+        }
+        digit = Instantiate(digits[rand], Parent.transform.position+new Vector3(6.5f,0f,0f), digits[rand].transform.rotation, Parent.transform);
+        cDigits.Add(new CDigit(digit, rand + 1));
         digitActive = 0;
+        //SetDigitActive();
+        cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, 4, 0);
+        rand = Random.Range(0, 8);
+        if (rand == 0)
+        {
+            oneNum++;
+        }
+        digit = Instantiate(digits[rand], Parent.transform.position + new Vector3(3.5f, 0f, 0f), digits[rand].transform.rotation, Parent.transform);
+        cDigits.Add(new CDigit(digit, rand + 1));
+
+        rand = Random.Range(0, 8);
+        if (rand == 0)
+        {
+            oneNum++;
+        }
+        digit = Instantiate(digits[rand], Parent.transform.position + new Vector3(2f, 0f, 0f), digits[rand].transform.rotation, Parent.transform);
+        cDigits.Add(new CDigit(digit, rand + 1));
+
         StartCoroutine(Spawn_Digit());
         
     }
@@ -46,17 +75,49 @@ public class _SpawnDigit : MonoBehaviour {
 
     IEnumerator Spawn_Digit()
     {
-        int i = 0;
         while (!isGameOver)
         {
             yield return new WaitForSeconds(timeForWait);
-
+            lastFrontier = true;                                    //!!! Тут заменить на метод получение переменной "последний рубеж"
             if (cDigits.Count<5)
             {
-                int rand = Random.Range(0, 9);
-               // yield return new WaitForSeconds(timeForWait);
+                int i = 0;
+                int rand = 0;
+                while (i == 0)
+                {
+                    int mind = 0;
+                    int maxd = 9;
+
+                    if (lastFrontier)
+                    {
+                        maxLevelDigit = 5;      //n-1                                //!!! Тут заменить на метод получение переменной "максимальный уровень врага"
+                        mind = Mathf.Max(0, maxLevelDigit - 2);
+                        maxd = Mathf.Min(9, maxLevelDigit + 3);
+                        if (oneNum < 2)
+                        {
+                            mind = 0;
+                            maxd = 0;
+                        }
+                    }
+
+                    rand = Random.Range(mind, maxd);
+                    if (rand == 0)
+                    {
+                        oneNum++;
+                    }
+                    if (oneNum <= 10)
+                    {
+                        i++;
+                    }
+                }
+                // yield return new WaitForSeconds(timeForWait);
                 digit = Instantiate(digits[rand], Parent.transform.position, digits[rand].transform.rotation, Parent.transform);
                 cDigits.Add(new CDigit(digit,rand+1));
+                if (digitActive==0 && cDigits.Count == 1)
+                {
+                    //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
+                    cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, 4, 0);
+                }
             }
             else
             {
@@ -82,7 +143,8 @@ public class _SpawnDigit : MonoBehaviour {
             cDigits.RemoveAt(n);
             if (cDigits.Count > 0)
             {
-                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
+                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit - 1];
+                cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, 4, 0);
             }
         }
     }
@@ -92,22 +154,26 @@ public class _SpawnDigit : MonoBehaviour {
         {
             if (digitActive == cDigits.Count - 1)
             {
-                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
+                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
+                cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, -4, 0);
                 digitActive = 0;
-                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
+                cDigits[digitActive].gameObjectDigit.transform.localScale +=new Vector3(0,4,0);
+                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
             }
             else
             {
-                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
+                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteDigit[cDigits[digitActive]._digit-1];
+                cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, -4, 0);
                 digitActive++;
-                cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
+                cDigits[digitActive].gameObjectDigit.transform.localScale += new Vector3(0, 4, 0);
+                //cDigits[digitActive].gameObjectDigit.gameObject.GetComponent<SpriteRenderer>().sprite = spriteActiveDigit[cDigits[digitActive]._digit-1];
                
             }
         }
     }
     public int GetDigitActive()
     {
-        return cDigits[digitActive]._digit-1;
+        return cDigits[digitActive]._digit;
     }
     public Sprite GetSpriteActiveDigit()
     {

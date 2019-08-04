@@ -6,12 +6,36 @@ using Pathfinding;
 public class EnemyGFX : MonoBehaviour
 {
 	public AIPath aiPath;
+    Animator animator;
 
-	private void Update()
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    private void Update()
 	{
-		if (aiPath.desiredVelocity.x >= 0.01f)
-			transform.rotation = Quaternion.Euler(0, 180, 0); 
-		else if (aiPath.desiredVelocity.x <= 0.01f)
-			transform.rotation = Quaternion.Euler(0, 0, 0); 
+        if (aiPath.desiredVelocity.x >= 0.01f)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            animator.ResetTrigger("Stay");
+            animator.SetTrigger("RunLeft");
+            animator.ResetTrigger("RunRight");
+        }
+
+        else if (aiPath.desiredVelocity.x <= 0.01f)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            animator.ResetTrigger("Stay");
+            animator.SetTrigger("RunLeft");
+            animator.ResetTrigger("RunRight");
+        }
+
+        else if (aiPath.desiredVelocity.x == 0f)
+        {
+            animator.ResetTrigger("RunRight");
+            animator.ResetTrigger("RunLeft");
+            animator.SetTrigger("Stay");
+        }
 	}
 }
