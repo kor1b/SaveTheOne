@@ -110,8 +110,61 @@ public class SpikesSpawn : MonoBehaviour
     private TileBase FindDirection(Vector3 coordinate)
     {
         RaycastHit2D hit;
-      //  Debug.DrawLine(coordinate, Vector3.right);
-        hit = Physics2D.Raycast(coordinate, Vector3.right, 1f, wallMask);
+
+        hit = Physics2D.Raycast(coordinate, Vector3.down, 1f, wallMask);
+        if (!hit)
+        {
+            hit = Physics2D.Raycast(coordinate, Vector3.right, 1f, wallMask);
+            if (hit)
+            {
+                Debug.Log("Right");
+                return tileRight;
+            }
+            else
+            {
+                Debug.Log("Down");
+                return tileDown;
+            }
+        }
+        else
+        {
+            hit = Physics2D.Raycast(coordinate + Vector3.up, Vector3.left, 1f, wallMask);
+            if (!hit)
+            {
+                Debug.Log("Up");
+                return tileUp;
+            }
+            hit = Physics2D.Raycast(coordinate + Vector3.right, Vector3.left, 1.5f, wallMask);
+            if (hit)
+            {
+                Debug.Log("Left");
+                return tileLeft;
+            }
+            
+        }
+      /*  hit = Physics2D.Raycast(coordinate, Vector3.right, 1f, wallMask);
+        if (!hit)
+        {
+            Debug.Log("Left");
+            return tileLeft;
+        }
+
+        hit = Physics2D.Raycast(coordinate, Vector3.up, 1f, wallMask);
+        if (!hit)
+        {
+            Debug.Log("Up");
+            return tileUp;
+        }*/
+
+      /*  hit = Physics2D.Raycast(coordinate, Vector3.right, 1f, wallMask);
+        if (!hit)
+        {
+            Debug.Log("Right");
+            return tileRight;
+        }*/
+
+
+      /*  hit = Physics2D.Raycast(coordinate, Vector3.right, 1f, wallMask);
         if (hit)
         {
             Debug.Log("Right1");
@@ -126,15 +179,15 @@ public class SpikesSpawn : MonoBehaviour
                 Debug.Log("Left");
                 return tileRight;
             }*/
-        }
-
+     // }
+    
         
-        hit = Physics2D.Raycast(coordinate, Vector2.up, 1f, wallMask);
+        /*hit = Physics2D.Raycast(coordinate, Vector2.up, 1f, wallMask);
         if (hit)
         {
             Debug.Log("Up");
             return tileUp;
-        }
+        }*/
         /*hit = Physics2D.Raycast(coordinate, Vector2.down, 1f);
         if (hit.collider != null)
         {
