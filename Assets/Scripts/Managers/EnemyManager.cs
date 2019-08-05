@@ -107,7 +107,6 @@ public class EnemyManager : MonoBehaviour
 
 	public void SpawnBoss()
 	{
-		//TODO:Instantiate boss
 		pool.GetObject (bossPrefab, enemyHolder, bossPosition.position, pool.bosses);
 	}
 }

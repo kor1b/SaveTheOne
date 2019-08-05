@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb1075349a148f409ef70dff774a801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rank: 25
   aiDSsetter: {fileID: 7216181064721304049}
   numberOfShieldsLeft: 3
 --- !u!114 &5359942458171235627

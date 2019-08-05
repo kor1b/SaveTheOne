@@ -54,7 +54,7 @@ public class SpawnManager : MonoBehaviour
         newCoridor.enterDoor.gameObject.SetActive(false);
         while (oldCoridor.exitDoor.transform.localPosition.x >= oldCoridor.transform.localPosition.x - oldCoridor.doorWidth)
         {
-            Debug.Log("DoorOpen");
+            //Debug.Log("DoorOpen");
             oldCoridor.exitDoor.transform.localPosition = new Vector3(oldCoridor.exitDoor.transform.localPosition.x - speed * Time.deltaTime, oldCoridor.defaultExitDoorPosition.y, 0);
             yield return null;
         }

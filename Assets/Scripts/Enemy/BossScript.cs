@@ -8,8 +8,10 @@ public class BossScript : EnemyCharacter
     public AIDestinationSetter aiDSsetter;
     public int numberOfShieldsLeft = 3;
     Rigidbody2D rb;
+
     private void Awake()
     {
+		//TODO: Set rank to boss
         rb = GetComponent<Rigidbody2D>();
         if (GameObject.FindWithTag("Player").activeInHierarchy)
         aiDSsetter.target = GameObject.FindWithTag("Player").transform;

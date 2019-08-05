@@ -13,9 +13,8 @@ public class EnemySoldier : EnemyCharacter
 	public GameObject healEffect;
 	public GameObject deathEffect;
 	ParticleSystem psHeal;
-	ParticleSystem psDeath;
 	private AIPath aiPath;
-	private int rank;
+	//private int rank;
 	private Animator animator;
 	private void Awake()
 	{
@@ -84,11 +83,4 @@ public class EnemySoldier : EnemyCharacter
 
 		StartCoroutine (Deactivate ());
 	}
-
-	IEnumerator Deactivate()
-	{
-		yield return new WaitForSeconds (psDeath.main.startLifetime.constantMax);
-		base.Death ();
-	}
-
 }
