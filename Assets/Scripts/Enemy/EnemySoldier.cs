@@ -5,95 +5,90 @@ using Pathfinding;
 
 public class EnemySoldier : EnemyCharacter
 {
-    public Enemy enemyScriptable;
-    EnemyManager enemyManager;
-    
-    public SpriteRenderer enemyGFX;
-    [Header("Visual")]
-    public GameObject healEffect;
-    public GameObject deathEffect;
-    ParticleSystem psHeal;
-    ParticleSystem psDeath;
-    private AIPath aiPath;
-    private int rank;
-    private Animator animator;
-    private void Awake()
-    {
-        psHeal = healEffect.GetComponent<ParticleSystem>();
-        psDeath = deathEffect.GetComponent<ParticleSystem>();
-        animator = enemyGFX.GetComponent<Animator>();
-        enemyManager = EnemyManager.Instance;
+	public Enemy enemyScriptable;
+	EnemyManager enemyManager;
 
-        aiPath = GetComponent<AIPath>();
-    }
-    protected override void SetParameters()
-    {
-        rank = Random.Range(2, 9);
-        enemyGFX.enabled = true;
-        SwitchNumber();
-    }
+	public SpriteRenderer enemyGFX;
+	[Header ("Visual")]
+	public GameObject healEffect;
+	public GameObject deathEffect;
+	ParticleSystem psHeal;
+	ParticleSystem psDeath;
+	private AIPath aiPath;
+	private int rank;
+	private Animator animator;
+	private void Awake()
+	{
+		psHeal = healEffect.GetComponent<ParticleSystem> ();
+		psDeath = deathEffect.GetComponent<ParticleSystem> ();
+		animator = enemyGFX.GetComponent<Animator> ();
+		enemyManager = EnemyManager.Instance;
 
-    void SwitchNumber()
-    {
-        enemyScriptable = enemyManager.enemySoldiers[rank - 2];
+		aiPath = GetComponent<AIPath> ();
+	}
+	protected override void SetParameters()
+	{
+		rank = Random.Range (2, 9);
+		enemyGFX.enabled = true;
+		SwitchNumber ();
+	}
 
-        enemyGFX.sprite = enemyScriptable.sprite;
-        aiPath.maxSpeed = enemyScriptable.speed;
-        if (enemyScriptable.animator != null || animator != null)
-        {
-            animator.runtimeAnimatorController = enemyScriptable.animator;
-        }
-        else
-        {
-            Debug.Log("Fuck!");
-        }
-        
-    }
-    
+	void SwitchNumber()
+	{
+		enemyScriptable = enemyManager.enemySoldiers[rank - 2];
 
-    public override void TakeDamage(int damage)
-    {
-        if (damage >= rank || damage == 1)
-        {
-            
-            Death();
-            
-        }
-        else
-            Heal();
-    }
+		enemyGFX.sprite = enemyScriptable.sprite;
+		aiPath.maxSpeed = enemyScriptable.speed;
+		if (enemyScriptable.animator != null || animator != null)
+		{
+			animator.runtimeAnimatorController = enemyScriptable.animator;
+		}
+		else
+		{
+			Debug.Log ("Fuck!");
+		}
+	}
 
-    void Heal()
-    {
-        if (rank < 9)
-        {
-            //increase rank
-            rank++;
-            SwitchNumber();
-            psHeal.Stop();
-            psHeal.Play();
-        }
-    }
+	public override void TakeDamage(int damage)
+	{
+		if (damage >= rank || damage == 1)
+			Death ();
+		else
+			Heal ();
+	}
 
-    new void Death()
-    {
-        Debug.Log("EnemyParticle");
-        psDeath.Stop();
-        psDeath.Play();
-        enemyGFX.enabled = false;
-        StartCoroutine(Deactivate());
-        enemyManager.enemiesAlive.Remove(gameObject);
+	void Heal()
+	{
+		if (rank < 9)
+		{
+			//increase rank
+			rank++;
+			SwitchNumber ();
+			psHeal.Stop ();
+			psHeal.Play ();
+		}
+	}
 
-        if (enemyManager.enemiesAlive.Count == 3)
-            enemyManager.spawnBigDigits = true;
-        else if (enemyManager.enemiesAlive.Count == 0)
-            enemyManager.SpawnBoss();
-    }
+	new void Death()
+	{
+		Debug.Log ("EnemyParticle");
+		psDeath.Stop ();
+		psDeath.Play ();
+		enemyGFX.enabled = false;
+		enemyManager.enemiesAlive.Remove (gameObject);
 
-    IEnumerator Deactivate()
-    {
-        yield return new WaitForSeconds(psDeath.main.startLifetime.constantMax);
-        base.Death();
-    }
+		if (enemyManager.enemiesAlive.Count == 3)
+			enemyManager.spawnBigDigits = true;
+		else if (enemyManager.enemiesAlive.Count == 0)
+			enemyManager.SpawnBoss ();
+
+		StartCoroutine (Deactivate ());
+	}
+
+	IEnumerator Deactivate()
+	{
+		yield return new WaitForSeconds (psDeath.main.startLifetime.constantMax);
+		base.Death ();
+	}
 
 }

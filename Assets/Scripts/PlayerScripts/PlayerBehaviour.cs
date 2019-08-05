@@ -7,10 +7,13 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [Header ("Movement")]
     public float speed;
+
     [Header("Visual")]
     public GameObject destroyEffect;
     public float deathDelay;
+	public Animator maskAnimator;
     public SpriteRenderer gunRenderer;
+
     SpriteRenderer sr;
     Vector2 movement;
     Animator animator;
@@ -71,8 +74,10 @@ public class PlayerBehaviour : MonoBehaviour
         ps.Play();
         sr.enabled = false;
         gunRenderer.enabled = false;
+		maskAnimator.SetTrigger("GameOver");
         Invoke("Death", 1f);
         GameManager.Instance.GameOver(deathDelay);
+		enabled = false;
     }
     void Death()
     {
