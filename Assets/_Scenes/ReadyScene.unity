@@ -2711,7 +2711,7 @@ MonoBehaviour:
   - {fileID: 1844798158577340, guid: ac65064cb76888548b624ed3c68b87bd, type: 3}
   Parent: {fileID: 1389509945}
   isGameOver: 0
-  timeForWait: 2
+  timeForWait: 0
   spriteDigit:
   - {fileID: 21300000, guid: 8bd6c7561fe1ca14185a4bbccf10717e, type: 3}
   - {fileID: 21300000, guid: 78b30139a95e6c440942264ceb5fb646, type: 3}
@@ -2722,6 +2722,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f8e7aa1bcc9f5b44aa2b4bde0899c44f, type: 3}
   - {fileID: 21300000, guid: cf2d7c885aee0b343988b42953876891, type: 3}
   - {fileID: 21300000, guid: cd1f7de005f65a7468c8f8ff98b2c561, type: 3}
+  minOneNumCount: 2
+  maxOneNumCount: 10
   oneNum: 0
 --- !u!4 &1935135920
 Transform:

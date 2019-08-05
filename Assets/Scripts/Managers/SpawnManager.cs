@@ -51,7 +51,6 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator OpenDoors()
     {
-        
         newCoridor.enterDoor.gameObject.SetActive(false);
         while (oldCoridor.exitDoor.transform.localPosition.x >= oldCoridor.transform.localPosition.x - oldCoridor.doorWidth)
         {
@@ -65,6 +64,7 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator CloseOldExitDoor()
     {
         GameManager.Instance.level++;
+		_SpawnDigit.Instance.oneNum = 0;
         while (oldCoridor.exitDoor.transform.localPosition.x < oldCoridor.defaultExitDoorPosition.x)
         {
             oldCoridor.exitDoor.transform.localPosition = new Vector3(oldCoridor.exitDoor.transform.localPosition.x + speed * Time.deltaTime, oldCoridor.defaultExitDoorPosition.y, 0);
