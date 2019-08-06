@@ -10,6 +10,7 @@ public abstract class EnemyCharacter : MonoBehaviour
 
 	private void OnEnable()
 	{
+		GetComponent<Collider2D> ().enabled = true;
 		SetParameters ();
 	}
 
