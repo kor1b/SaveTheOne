@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance;
-    SpawnManager spawnManager;
+
+	public Animator maskAnimator;
+
+	SpawnManager spawnManager;
 	public int level = 1;
 
 	#region Singleton
@@ -30,7 +33,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ReloadScene(float delay)
     {
-        yield return new WaitForSeconds(delay);
+		maskAnimator.SetTrigger ("GameOver");
+		yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

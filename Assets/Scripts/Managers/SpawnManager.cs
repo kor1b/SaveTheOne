@@ -13,6 +13,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] [Tooltip("Скорость, с которой открываем двери")]
     private float speed;
 
+	[HideInInspector] public bool enteredNewRoom = false;
+
     CoridorScript oldCoridor;
     GameObject oldCoridorSystem;
     GameObject newCoridorSystem;
@@ -63,6 +65,7 @@ public class SpawnManager : MonoBehaviour
 
     private IEnumerator CloseOldExitDoor()
     {
+
         GameManager.Instance.level++;
 		_SpawnDigit.Instance.oneNum = 0;
         while (oldCoridor.exitDoor.transform.localPosition.x < oldCoridor.defaultExitDoorPosition.x)
@@ -70,6 +73,11 @@ public class SpawnManager : MonoBehaviour
             oldCoridor.exitDoor.transform.localPosition = new Vector3(oldCoridor.exitDoor.transform.localPosition.x + speed * Time.deltaTime, oldCoridor.defaultExitDoorPosition.y, 0);
             yield return null;
         }
+		if (!enteredNewRoom)
+		{
+			GameManager.Instance.GameOver (2);
+			yield return null;
+		}
         newCoridor.enterDoor.gameObject.SetActive(true);
         
         MoveToCoordBegin(coridorParent);
@@ -78,6 +86,8 @@ public class SpawnManager : MonoBehaviour
         GameObject.FindWithTag("Player").transform.SetParent(currentCoridorSystem.transform);
         MoveToCoordBegin(currentCoridorSystem.transform);
         oldCoridorSystem.SetActive(false);
+
+		enteredNewRoom = false;
 
         EnemyManager.Instance.SpawnEnemies(GameManager.Instance.level);
     }
