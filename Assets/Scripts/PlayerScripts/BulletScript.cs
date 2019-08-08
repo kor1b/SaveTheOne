@@ -6,6 +6,8 @@ public class BulletScript : MonoBehaviour
 {
     _SpawnDigit digitSpawner;
 
+	Transform gun;
+
     [Header("Options")]
     public float speed;
     public float lifetime;
@@ -22,11 +24,14 @@ public class BulletScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         digitSpawner = _SpawnDigit.Instance;
+		gun = GameObject.FindWithTag ("Gun").transform;
     }
     private void OnEnable()
     {
         InitFunction(digitSpawner.GetDigitActive()+1, digitSpawner.GetSpriteActiveDigit());
         lifeTimer = lifetime;
+
+		rb.AddForce (gun.right * speed * 50);
     }
 
     private void Update()
@@ -40,45 +45,46 @@ public class BulletScript : MonoBehaviour
             lifeTimer -= Time.deltaTime;
         }
     }
-    private void FixedUpdate()
-    {
-        rb.velocity = transform.right * speed;
-    }
+	//private void FixedUpdate()
+	//{
+	//    rb.velocity = transform.right * speed;
+	//}
 
-    private void OnTriggerEnter2D(Collider2D other)
+	private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
             if (other.gameObject != null && other.gameObject.activeInHierarchy)
             {
-                other.GetComponent<EnemySoldier>().TakeDamage(rank);
+                other.gameObject.GetComponent<EnemySoldier>().TakeDamage(rank);
                 DestroyBullet();
             }
            
         }
-        if (other.CompareTag("Boss"))
+        if (other.gameObject.CompareTag("Boss"))
         {
             if (rank == 1)
             {
-                other.GetComponent<BossScript>().TakeDamage(rank);
+                other.gameObject.GetComponent<BossScript>().TakeDamage(rank);
                 DestroyBullet();
             }
         }
-        else if(other.CompareTag("Shield"))
+        else if(other.gameObject.CompareTag("Shield"))
         {
             if (rank == 1)
             {
                 Vector2 dir = other.transform.position - transform.position;
-                other.GetComponentInParent<BossScript>().PushAway(dir, 10f);
+                other.gameObject.GetComponentInParent<BossScript>().PushAway(dir, 10f);
             }
             DestroyBullet();
         }
-        //if (rank != 1)
-        //{
-            DestroyBullet();
-            //Вызвать партикл уничтожения пули
-        //}
-    }
+		if (rank != 1)
+		{
+			DestroyBullet ();
+			//Вызвать партикл уничтожения пули
+
+		}
+	}
 
     void DestroyBullet()
     {

@@ -2156,7 +2156,7 @@ GameObject:
   - component: {fileID: 1526062715}
   m_Layer: 0
   m_Name: GunPivot
-  m_TagString: Untagged
+  m_TagString: Gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3249,6 +3249,21 @@ PrefabInstance:
       propertyPath: m_MaskInteraction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 152192703357542712, guid: 0a065267bbb33e740943d2cd2b21abf8,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: fd9b3afaa29e6dc4e80aef4ab2226862, type: 2}
+    - target: {fileID: 152192705084984895, guid: 0a065267bbb33e740943d2cd2b21abf8,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: fd9b3afaa29e6dc4e80aef4ab2226862, type: 2}
+    - target: {fileID: 152192704473582788, guid: 0a065267bbb33e740943d2cd2b21abf8,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: fd9b3afaa29e6dc4e80aef4ab2226862, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a065267bbb33e740943d2cd2b21abf8, type: 3}
 --- !u!1 &2036448208
